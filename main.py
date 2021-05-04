@@ -9,6 +9,9 @@ HEIGHT = 500
 xpos = 200
 ypos = 100
 border = 20,20
+  #velocities
+pVx = 0
+pVy = 0
 
 PINK = (139,0,139)
 
@@ -21,12 +24,12 @@ Maze = [[1,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,1,0,0,0,0,0,0,0,0],
         [0,0,0,0,1,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,1,0,0,1,0],
         [0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0]]
+        [0,0,0,0,0,0,1,0,0,0,0,1],
+        [0,0,0,0,0,0,0,1,0,0,1,0],
+        [0,0,0,0,0,0,0,0,1,1,0,0],
+        [0,0,0,0,0,1,0,0,0,0,0,0]]
 
 #game loop---------------------------------------------------
 stop = False
@@ -41,15 +44,29 @@ while not stop:
   
   keys = pygame.key.get_pressed() 
   if keys[pygame.K_UP]:
-    ypos -= 5
-  if keys[pygame.K_DOWN]:
-    ypos += 5
-  if keys[pygame.K_LEFT]:
-    xpos -= 5
-  if keys[pygame.K_RIGHT]:
-    xpos += 5
+    pVy = -2
+  elif keys[pygame.K_DOWN]:
+    pVy = 2
+  elif keys[pygame.K_LEFT]:
+    pVx = -2
+  elif keys[pygame.K_RIGHT]:
+    pVx = 2
+  else:
+    pVx = 0
+    pVy = 0
 
   #game logic-------------------------------------------------
+
+    #collision of window
+  if xpos < 0 or xpos + 20 > WIDTH:
+    pVx = 0
+  if ypos < 0 or ypos + 20 > HEIGHT:
+    pVy = 0
+
+
+
+  xpos += pVx
+  ypos += pVy 
 
   #render section-----------------------------------------------
   screen.fill((0,0,0))
