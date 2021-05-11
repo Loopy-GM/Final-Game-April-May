@@ -30,16 +30,16 @@ clock = pygame.time.Clock()
 
 class maze:
   def __init__ (self):
-    self.Maze = [[0,0,0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,1,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0,0,0],
-          [0,0,0,0,0,0,0,0,0,0,0,0]]
+    self.Maze = [[1,1,1,1,1,1,1,1,1,1,1,1],
+          [1,0,1,1,0,1,1,1,1,1,0,1],
+          [1,0,0,0,9,0,1,0,0,0,0,1],
+          [0,1,1,0,1,0,1,0,1,1,0,1],
+          [1,0,1,0,0,0,0,0,0,0,0,1],
+          [1,0,1,0,1,0,1,0,1,0,1,1],
+          [1,0,0,0,1,0,1,0,1,1,1,1],
+          [1,0,1,1,0,0,0,1,1,1,0,1],
+          [1,0,0,0,1,1,0,0,0,0,0,1],
+          [1,1,1,1,0,0,1,1,1,1,1,1]]
 
   def draw(self):
     #maze map
@@ -50,16 +50,26 @@ class maze:
           pygame.draw.rect(screen, (255,0,0), (j*50,i*50,50,50))
         else:
           pygame.draw.rect(screen, (255,255,255), (j*50,i*50,50,50), 1)
+        if self.Maze[i][j]==9:
+          #start position for player
+          pygame.draw.rect(screen, (255,255,255), (j*50,i*50,50,50))
+
 
   def collide (self,px, py, direction):
 
     if direction is RIGHT:
           #print("checking ", px, " , ",py, "and row/column", px/50, " , ",py/50)
-          if self.Maze[int(py/50)][int((px+20)/50)]==1:
-           print("collision from right!")
-           return True
-          else:
-            print("no collision")
+      if self.Maze[int(py/50)][int((px+20)/50)]==1:
+        print("collision from right!")
+        return True
+      else:
+        print("no collision")
+    if direction is LEFT:
+      if self.Maze[int((py)/50)][int((px)/50)]==1:
+        print("brrrrrrrrrrrrrrrrr")
+        return True
+      else:
+        print("no left collision")
     if direction is DOWN:
       if self.Maze[int((py+20)/50)][int((px)/50)]==1:
         print("feet collision")
@@ -67,8 +77,11 @@ class maze:
       else:
         print("no down collision")
     if direction is UP:
-      
-    #make the rest of directions here
+      if self.Maze[int((py)/50)][int((px)/50)]==1:
+        print("aaaaaaaaaaaa")
+        return True
+      else:
+        print("no up collision")
 
 m1 = maze()
 
@@ -121,8 +134,8 @@ while not stop:
   #render section-----------------------------------------------
   screen.fill((0,0,0))
 
-  player = pygame.draw.rect(screen, PINK, (xpos,ypos,pW,pH))
   m1.draw()
+  player = pygame.draw.rect(screen, PINK, (xpos,ypos,pW,pH))
 
 
   pygame.display.flip()
