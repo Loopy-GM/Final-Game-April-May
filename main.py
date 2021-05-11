@@ -14,6 +14,24 @@ pH = 20
 pVx = 0
 pVy = 0
 
+#gamestates stuff
+START = 0
+PLAYING = 1#level 1
+LEVEL2 = 2
+
+PLAY = 0
+PAUSE = 1
+QUIT = 2
+LEFT = 3
+RIGHT = 4
+UP = 5
+DOWN = 6
+PLAY2 = 7
+
+game_state = START
+
+state = [False, False, False, False, False, False, False, False, False]
+
 
 #CONSTANTS
 PINK = (139,0,139)
