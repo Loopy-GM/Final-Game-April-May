@@ -22,15 +22,11 @@ LEVEL2 = 2
 PLAY = 0
 PAUSE = 1
 QUIT = 2
-LEFT = 3
-RIGHT = 4
-UP = 5
-DOWN = 6
-PLAY2 = 7
+PLAY2 = 3
 
 game_state = START
 
-state = [False, False, False, False, False, False, False, False, False]
+action = [False, False, False, False]
 
 
 #CONSTANTS
@@ -42,6 +38,8 @@ DOWN =3
 
 direction = RIGHT
 
+font = pygame.font.SysFont("comicsansms", 16)
+text1 = font.render("start screen. press p to play.", True, (0, 228, 0))
 #anything above loop
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 clock = pygame.time.Clock()
@@ -115,6 +113,10 @@ while not stop:
           done = True 
   
   keys = pygame.key.get_pressed() 
+  if keys[pygame.K_p]:
+    action[PLAY]=True
+  else:
+    action[PLAY]=False
   if keys[pygame.K_UP]:
     pVy = -2
   elif keys[pygame.K_DOWN]:
@@ -139,6 +141,14 @@ while not stop:
   if pVx>0:
     direction = RIGHT
 
+  if game_state == START:
+    if action[PLAY] == True:
+      game_state = PLAYING
+
+  elif game_state == PLAYING :
+    if action[PLAY2] == True:
+      game_state = LEVEL2
+
   if m1.collide(xpos, ypos, direction)== True:
     print("collsion!")
     if direction == RIGHT or direction  == LEFT:
@@ -151,10 +161,19 @@ while not stop:
 
   #render section-----------------------------------------------
   screen.fill((0,0,0))
-
-  m1.draw()
   player = pygame.draw.rect(screen, PINK, (xpos,ypos,pW,pH))
 
+
+  if game_state == START:
+    screen.fill((0,0,180))
+    print("start screen")
+    screen.blit(text1,(100, 100))
+
+  elif game_state == PLAYING:
+    m1.draw()
+    player
+    print("playing")
+        
 
   pygame.display.flip()
 
