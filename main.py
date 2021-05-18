@@ -10,6 +10,9 @@ xpos = 200
 ypos = 100
 pW = 20
 pH = 20
+
+ex = 0
+ey = 0
   #velocities
 pVx = 0
 pVy = 0
@@ -99,6 +102,27 @@ class maze:
       else:
         print("no up collision")
 
+  #try to write an enemy class
+class cucuy:
+  def __init__(self):
+    self.x = ex
+    self.y = ey
+  #init function
+  #draw function
+  def draw(self):
+    pygame.draw.rect(screen, (255,255,255), (self.x, self.y, 20, 20))
+  def move(self,x,y):
+    if xpos > self.x:
+      self.x += 1
+    if xpos < self.x:
+      self.x -= 1
+    if ypos > self.y:
+      self.y += 1
+    if ypos < self.y:
+      self.y -= 1
+  #move function: just check IF player X is bigger than self.x, than self.x+=1
+
+enemy = cucuy()
 m1 = maze()
 
 #game loop---------------------------------------------------
@@ -142,6 +166,8 @@ while not stop:
   if pVx>0:
     direction = RIGHT
 
+  enemy.move(ex,ey)
+
   if game_state == START:
     if action[PLAY] == True:
       game_state = PLAYING
@@ -171,6 +197,7 @@ while not stop:
     screen.blit(text1,(100, 100))
 
   elif game_state == PLAYING:
+    enemy.draw()
     m1.draw()
     player
     print("playing")
