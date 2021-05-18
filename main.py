@@ -81,7 +81,7 @@ class maze:
       else:
         print("no collision")
     if direction is LEFT:
-      if self.Maze[int((py)/50)][int((px)/50)]==1:
+      if self.Maze[int((py)/50)][int((px-2)/50)]==1:
         print("brrrrrrrrrrrrrrrrr")
         return True
       else:
@@ -93,7 +93,7 @@ class maze:
       else:
         print("no down collision")
     if direction is UP:
-      if self.Maze[int((py)/50)][int((px)/50)]==1:
+      if self.Maze[int((py-2)/50)][int((px)/50)]==1 or self.Maze[int((py-2)/50)][int((px+20)/50)]==1:
         print("aaaaaaaaaaaa")
         return True
       else:
@@ -117,16 +117,17 @@ while not stop:
     action[PLAY]=True
   else:
     action[PLAY]=False
-  if keys[pygame.K_UP]:
+    
+  if keys[pygame.K_UP] and m1.collide(xpos, ypos, UP)!=True:
     pVy = -2
-  elif keys[pygame.K_DOWN]:
+  elif keys[pygame.K_DOWN] and m1.collide(xpos, ypos, DOWN)!= True:
     pVy = 2
   else:
     pVy = 0
 
-  if keys[pygame.K_LEFT]:
+  if keys[pygame.K_LEFT] and m1.collide(xpos, ypos, LEFT)!= True:
     pVx = -2
-  elif keys[pygame.K_RIGHT]:
+  elif keys[pygame.K_RIGHT] and m1.collide(xpos, ypos, RIGHT)!= True:
     pVx = 2
   else:
     pVx = 0
@@ -149,12 +150,12 @@ while not stop:
     if action[PLAY2] == True:
       game_state = LEVEL2
 
-  if m1.collide(xpos, ypos, direction)== True:
-    print("collsion!")
-    if direction == RIGHT or direction  == LEFT:
-      pVx *=-1
-    if direction == UP or direction == DOWN:
-      pVy *=-1
+ # if m1.collide(xpos, ypos, direction)== True:
+  #  print("collsion!")
+  #  if direction == RIGHT or direction  == LEFT:
+  #    pVx *=-1
+  #  if direction == UP or direction == DOWN:
+  #    pVy *=-1
 
   xpos += pVx
   ypos += pVy

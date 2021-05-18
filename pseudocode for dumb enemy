@@ -1,0 +1,7 @@
+draw a second square, set its position
+in physics section:
+if xpos< playerX
+  xpos-=1
+else if xpos > playerX
+  xpos+=1
+repeat for y positions
