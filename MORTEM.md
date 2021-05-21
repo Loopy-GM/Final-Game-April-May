@@ -14,3 +14,5 @@ POST MORTEM:
    Code Repl:
     https://replit.com/@ed475997/Final-Game-April-May#main.py
     
+   Trello:
+    https://trello.com/b/ce5yKCLi/edgardo-finalgameproject
